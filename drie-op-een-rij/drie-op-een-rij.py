@@ -1,0 +1,56 @@
+import pygame
+
+# constanten
+#   instellingen van het programma die we makkelijk willen kunnen veranderen
+
+# constanten_window
+window_breedte = 800
+window_hoogte = 600
+window_achtergrondkleur = (0, 0, 25)
+# constanten_vakje
+vakje_breedte = 100
+vakje_hoogte = 100
+vakje_achtergrondkleur = (0, 50, 0)
+# constanten_speelveld
+speelveld_marge_links = 100
+speelveld_marge_boven = 100
+speelveld_breedte = 300 # = vakje_breedte * 3
+speelveld_hoogte = 300 # = vakje_hoogte * 3
+
+pygame.init()
+screen = pygame.display.set_mode( [window_breedte,window_hoogte] ) 
+clock = pygame.time.Clock()
+
+draait = True
+
+while draait == True:
+    # ontvang invoer
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            draait = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            #print("mouseclick(", pos, ")")
+            # controleer of click binnen het speelveld is
+            # speelveld_marge_links < x < speelveld_marge_links + speelveld_breedte
+            if pos[0] >= speelveld_marge_links and pos[0] <= speelveld_marge_links + speelveld_breedte:
+                if pos[1] >= speelveld_marge_boven and pos[1] <= speelveld_marge_boven + speelveld_hoogte:
+                    print('*')
+
+    # teken het speelbord
+    screen.fill( window_achtergrondkleur )
+    # teken de vakjes
+    for j in range(3):
+        for i in range(3):
+            pygame.draw.rect(screen, vakje_achtergrondkleur,
+                [speelveld_marge_links + i*vakje_breedte,
+                 speelveld_marge_boven + j*vakje_hoogte,
+                 vakje_breedte,
+                 vakje_hoogte] )
+    
+    clock.tick(60)
+    pygame.display.flip()
+    
+    
+pygame.quit()
+
