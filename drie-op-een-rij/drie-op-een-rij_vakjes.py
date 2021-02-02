@@ -11,11 +11,20 @@ window_achtergrondkleur = (0, 0, 25)
 vakje_breedte = 100
 vakje_hoogte = 100
 vakje_achtergrondkleur = (0, 50, 0)
+vakje_Xkleur = (255, 50, 0)
+vakje_Okleur = (0, 50, 255)
 # constanten_speelveld
 speelveld_marge_links = 100
 speelveld_marge_boven = 100
 speelveld_breedte = 300 # = vakje_breedte * 3
 speelveld_hoogte = 300 # = vakje_hoogte * 3
+
+
+speelveld = [ ["X", "O", ""],
+              ["", "O", "X"],
+              ["X", "O", ""] ]
+
+
 
 pygame.init()
 screen = pygame.display.set_mode( [window_breedte,window_hoogte] ) 
@@ -40,17 +49,36 @@ while draait == True:
     # teken het speelbord
     screen.fill( window_achtergrondkleur )
     # teken de vakjes
-    for j in range(3):
-        for i in range(3):
-            pygame.draw.rect(screen, vakje_achtergrondkleur,
-                [speelveld_marge_links + i*vakje_breedte,
-                 speelveld_marge_boven + j*vakje_hoogte,
-                 vakje_breedte - 10,
-                 vakje_hoogte - 10] )
+    for j in [0, 1, 2]:
+        for i in [0, 1, 2]:
+            # kijk naar wat er in onze speelveld-lijst staat
+            # als "X" -> blauw-tekenen
+            # als "O" -> rood-tekenen
+            # als "" -> x-tekenen
+            if speelveld[j][i] == "":
+                pygame.draw.rect(screen, vakje_achtergrondkleur,
+                    [speelveld_marge_links + i*vakje_breedte,
+                     speelveld_marge_boven + j*vakje_hoogte,
+                     vakje_breedte - 10,
+                     vakje_hoogte - 10] )
+            elif speelveld[j][i] == "X":
+                pygame.draw.rect(screen, vakje_Xkleur,
+                    [speelveld_marge_links + i*vakje_breedte,
+                     speelveld_marge_boven + j*vakje_hoogte,
+                     vakje_breedte - 10,
+                     vakje_hoogte - 10] )
+            elif speelveld[j][i] == "O":
+                pygame.draw.rect(screen, vakje_Okleur,
+                    [speelveld_marge_links + i*vakje_breedte,
+                     speelveld_marge_boven + j*vakje_hoogte,
+                     vakje_breedte - 10,
+                     vakje_hoogte - 10] )
+
     
     clock.tick(60)
     pygame.display.flip()
     
     
 pygame.quit()
+
 
