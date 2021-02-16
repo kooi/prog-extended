@@ -83,7 +83,7 @@ while draait == True:
                         [int(speelveld_marge_links + (i+.5)*vakje_breedte), # x
                          int(speelveld_marge_boven + (j+.5)*vakje_hoogte)], # y
                         int(vakje_hoogte *.5), # straal
-                        width=2
+                        2
                     )
 
     
