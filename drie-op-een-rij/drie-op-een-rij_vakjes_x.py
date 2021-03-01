@@ -20,8 +20,8 @@ speelveld_breedte = 300 # = vakje_breedte * 3
 speelveld_hoogte = 300 # = vakje_hoogte * 3
 
 
-speelveld = [ ["", "", ""],
-              ["", "O", ""],
+speelveld = [ ["X", "", ""],
+              ["X", "O", ""],
               ["", "", ""] ]
 
 
@@ -39,7 +39,6 @@ while draait == True:
             draait = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
-            #print("mouseclick(", pos, ")")
             # controleer of click binnen het speelveld is
             # speelveld_marge_links < x < speelveld_marge_links + speelveld_breedte
             if pos[0] >= speelveld_marge_links and pos[0] <= speelveld_marge_links + speelveld_breedte:
@@ -66,23 +65,35 @@ while draait == True:
                      vakje_breedte - 10,
                      vakje_hoogte - 10] )
             elif speelveld[j][i] == "X":
-                pygame.draw.rect(screen, vakje_Xkleur,
+                pygame.draw.line(
+                    screen,
+                    vakje_Xkleur,
                     [speelveld_marge_links + i*vakje_breedte,
-                     speelveld_marge_boven + j*vakje_hoogte,
-                     vakje_breedte - 10,
-                     vakje_hoogte - 10] )
+                     speelveld_marge_boven + j*vakje_hoogte],
+                    [speelveld_marge_links + (i+1)*vakje_breedte,
+                     speelveld_marge_boven + (j+1)*vakje_hoogte]
+                )
+                pygame.draw.line(
+                    screen,
+                    vakje_Xkleur,
+                    [speelveld_marge_links + i*vakje_breedte,
+                     speelveld_marge_boven + (j+1)*vakje_hoogte],
+                    [speelveld_marge_links + (i+1)*vakje_breedte,
+                     speelveld_marge_boven + j*vakje_hoogte]
+                )
+#                 pygame.draw.rect(screen, vakje_Xkleur,
+#                     [speelveld_marge_links + i*vakje_breedte,
+#                      speelveld_marge_boven + j*vakje_hoogte,
+#                      vakje_breedte - 10,
+#                      vakje_hoogte - 10] )
             elif speelveld[j][i] == "O":
-#                pygame.draw.rect(screen, vakje_Okleur,
-#                    [speelveld_marge_links + i*vakje_breedte,
-#                     speelveld_marge_boven + j*vakje_hoogte,
-#                     vakje_breedte - 10,
-#                     vakje_hoogte - 10] )
                 pygame.draw.circle(
                         screen,
                         vakje_Okleur,
                         [int(speelveld_marge_links + (i+.5)*vakje_breedte), # x
                          int(speelveld_marge_boven + (j+.5)*vakje_hoogte)], # y
-                        int(vakje_hoogte *.5) # straal
+                        int(vakje_hoogte *.5), # straal
+                        2 # lijndikte
                     )
 
     
