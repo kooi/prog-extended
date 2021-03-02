@@ -7,12 +7,25 @@ class FlyingTurtle(turtle.Turtle):
         self.shape("turtle")
         self.shapesize(3)
         self.vy = 0
+        self.vx = 5
         self.ay = -1
+        self.bottom = 0
+        self.right = 200
+        self.left = -200
         self.move()
 
     def move(self):
+        nx = self.xcor() + self.vx
         ny = self.ycor() + self.vy
-        self.goto(0, ny)
+        
+        if ny < self.bottom:
+            ny = self.bottom
+            self.vy = 0
+            
+        if nx > self.right:
+            nx = self.left
+        
+        self.goto(nx, ny)
         self.getscreen().ontimer(self.move, int(1000/60))
         self.vy = self.vy + self.ay
         
